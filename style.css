@@ -1,0 +1,1077 @@
+/* ==========================================================================
+   ALQURANKU — THEME & STYLESHEET
+   Design inspired by the Holy Quran: Islamic Emerald, Medina Gold & Mushaf Parchment
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+/* --------------------------------------------------------------------------
+   1. CSS Custom Properties / Design Tokens
+   -------------------------------------------------------------------------- */
+:root {
+    /* Islamic Emerald Palette */
+    --color-primary-900: #0a251e;
+    --color-primary-850: #0e352b;
+    --color-primary-800: #124538;
+    --color-primary-700: #185a4a;
+    --color-primary-600: #1e705c;
+    --color-primary-500: #278b73;
+    --color-primary-400: #38a88e;
+    --color-primary-200: #a7dfd2;
+    --color-primary-100: #dff2ec;
+    --color-primary-50:  #f0f8f5;
+
+    /* Medina Gold / Amber Accents (Tazhib / Illuminated Manuscript) */
+    --color-gold-700: #8c670f;
+    --color-gold-600: #aa7d14;
+    --color-gold-500: #c9971e;
+    --color-gold-400: #e2b23a;
+    --color-gold-300: #edd07b;
+    --color-gold-100: #faf3de;
+    --color-gold-50:  #fdfaf2;
+
+    /* Surfaces & Paper Backgrounds (Mushaf Parchment) */
+    --color-bg-body: #f8f6f0;
+    --color-bg-surface: #ffffff;
+    --color-bg-surface-soft: #f4efe4;
+    --color-bg-surface-elevated: #ffffff;
+    --color-border: #e6dfcf;
+    --color-border-subtle: #f0ebe0;
+    --color-border-gold: #edd07b;
+
+    /* Typography */
+    --color-text-main: #1d2b27;
+    --color-text-muted: #536b63;
+    --color-text-light: #7c938b;
+    --color-text-arabic: #0b2f26;
+    --color-text-gold: #a0740e;
+
+    /* State & Feedback */
+    --color-danger: #c0392b;
+    --color-danger-bg: #fdf2f2;
+    --color-danger-border: #f8d7da;
+    --color-success: #1e705c;
+
+    /* Typography Families */
+    --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-arabic: 'Amiri', 'Traditional Arabic', 'Scheherazade New', serif;
+
+    /* Spacing */
+    --space-2xs: 4px;
+    --space-xs: 8px;
+    --space-sm: 12px;
+    --space-md: 16px;
+    --space-lg: 24px;
+    --space-xl: 32px;
+    --space-2xl: 48px;
+    --space-3xl: 64px;
+
+    /* Border Radius */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 18px;
+    --radius-xl: 24px;
+    --radius-full: 9999px;
+
+    /* Elevation / Shadows */
+    --shadow-xs: 0 1px 2px rgba(18, 69, 56, 0.04);
+    --shadow-sm: 0 2px 6px rgba(18, 69, 56, 0.06), 0 1px 3px rgba(18, 69, 56, 0.04);
+    --shadow-md: 0 6px 18px rgba(18, 69, 56, 0.08), 0 2px 6px rgba(18, 69, 56, 0.04);
+    --shadow-lg: 0 12px 30px rgba(18, 69, 56, 0.12), 0 4px 10px rgba(18, 69, 56, 0.06);
+
+    /* Transitions */
+    --transition-fast: 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-normal: 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+
+    /* Container */
+    --container-max-width: 1140px;
+}
+
+/* --------------------------------------------------------------------------
+   2. Global Reset & Base
+   -------------------------------------------------------------------------- */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    font-family: var(--font-sans);
+    background-color: var(--color-bg-body);
+    color: var(--color-text-main);
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-image: 
+        radial-gradient(ellipse at 50% 0%, rgba(201, 151, 30, 0.06) 0%, transparent 60%),
+        radial-gradient(circle at 100% 100%, rgba(18, 69, 56, 0.03) 0%, transparent 40%);
+    background-attachment: fixed;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Accessibility Focus Visible */
+:focus-visible {
+    outline: 2px solid var(--color-gold-500);
+    outline-offset: 3px;
+    border-radius: var(--radius-sm);
+}
+
+img, svg {
+    display: block;
+    max-width: 100%;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+button, input {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    background: none;
+}
+
+/* --------------------------------------------------------------------------
+   3. Loading / Preloader Component
+   -------------------------------------------------------------------------- */
+.preloader {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    background-color: rgba(248, 246, 240, 0.95);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    gap: var(--space-md);
+    transition: opacity var(--transition-normal), visibility var(--transition-normal);
+}
+
+.loader {
+    width: 54px;
+    height: 54px;
+    border: 4px solid var(--color-primary-100);
+    border-top: 4px solid var(--color-primary-700);
+    border-right: 4px solid var(--color-gold-500);
+    border-radius: 50%;
+    animation: putar 0.9s cubic-bezier(0.6, 0.2, 0.4, 0.8) infinite;
+    box-shadow: 0 4px 12px rgba(18, 69, 56, 0.1);
+}
+
+#pesanLoading {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--color-primary-850);
+    letter-spacing: 0.02em;
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+}
+
+#pesanLoading::before {
+    content: "۞";
+    color: var(--color-gold-500);
+    font-size: 1.1rem;
+}
+
+@keyframes putar {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* --------------------------------------------------------------------------
+   4. Layout Containers
+   -------------------------------------------------------------------------- */
+.container {
+    width: 100%;
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+    padding: 0 var(--space-md);
+}
+
+@media (min-width: 768px) {
+    .container {
+        padding: 0 var(--space-xl);
+    }
+}
+
+/* --------------------------------------------------------------------------
+   5. Site Header & Navigation Bar
+   -------------------------------------------------------------------------- */
+.site-header {
+    background-color: rgba(255, 255, 255, 0.94);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--color-border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: var(--shadow-xs);
+}
+
+.nav-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-sm) 0;
+    min-height: 68px;
+}
+
+.brand-link {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    transition: transform var(--transition-fast);
+}
+
+.brand-link:hover {
+    transform: translateY(-1px);
+}
+
+.brand-emblem {
+    width: 42px;
+    height: 42px;
+    background: linear-gradient(135deg, var(--color-primary-800), var(--color-primary-600));
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-gold-400);
+    box-shadow: 0 3px 8px rgba(18, 69, 56, 0.2);
+    border: 1px solid var(--color-gold-500);
+    flex-shrink: 0;
+}
+
+.brand-emblem svg {
+    width: 24px;
+    height: 24px;
+    fill: currentColor;
+}
+
+.brand-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.brand-title {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--color-primary-850);
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+}
+
+.brand-tagline {
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    font-weight: 500;
+}
+
+.site-nav {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+}
+
+.nav-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    padding: var(--space-xs) var(--space-md);
+    border-radius: var(--radius-full);
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+    transition: all var(--transition-fast);
+    border: 1px solid transparent;
+}
+
+.nav-link:hover {
+    color: var(--color-primary-800);
+    background-color: var(--color-primary-50);
+}
+
+.nav-link.active {
+    color: var(--color-primary-850);
+    background-color: var(--color-primary-100);
+    border-color: rgba(24, 90, 74, 0.15);
+}
+
+.nav-badge {
+    background-color: var(--color-gold-500);
+    color: #ffffff;
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: var(--radius-full);
+    line-height: 1;
+    min-width: 18px;
+    text-align: center;
+}
+
+/* --------------------------------------------------------------------------
+   6. Hero Section (Index)
+   -------------------------------------------------------------------------- */
+.hero-section {
+    padding: var(--space-xl) 0 var(--space-md);
+    text-align: center;
+    position: relative;
+}
+
+.hero-ornament {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-md);
+    color: var(--color-gold-500);
+    font-size: 1.1rem;
+    margin-bottom: var(--space-xs);
+}
+
+.hero-ornament::before,
+.hero-ornament::after {
+    content: "";
+    display: block;
+    width: 48px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--color-gold-400), transparent);
+}
+
+.hero-title {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--color-primary-850);
+    letter-spacing: -0.03em;
+    margin-bottom: var(--space-xs);
+    line-height: 1.2;
+}
+
+@media (min-width: 768px) {
+    .hero-title {
+        font-size: 2.5rem;
+    }
+}
+
+.hero-arabic-calligraphy {
+    font-family: var(--font-arabic);
+    font-size: 1.8rem;
+    color: var(--color-gold-600);
+    line-height: 1.4;
+    margin-bottom: var(--space-xs);
+    font-weight: 700;
+}
+
+.hero-subtitle {
+    font-size: 0.95rem;
+    color: var(--color-text-muted);
+    max-width: 580px;
+    margin: 0 auto var(--space-lg);
+    line-height: 1.6;
+}
+
+/* --------------------------------------------------------------------------
+   7. Search Bar & Controls
+   -------------------------------------------------------------------------- */
+.search-wrapper {
+    max-width: 600px;
+    margin: 0 auto var(--space-xl);
+    position: relative;
+}
+
+.search-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: var(--color-bg-surface);
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius-full);
+    padding: var(--space-2xs) var(--space-md);
+    box-shadow: var(--shadow-sm);
+    transition: all var(--transition-fast);
+}
+
+.search-box:focus-within {
+    border-color: var(--color-primary-600);
+    box-shadow: 0 0 0 4px rgba(30, 112, 92, 0.12), var(--shadow-md);
+}
+
+.search-icon {
+    color: var(--color-primary-700);
+    width: 20px;
+    height: 20px;
+    margin-right: var(--space-xs);
+    flex-shrink: 0;
+}
+
+.search-input {
+    width: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    padding: var(--space-sm) 0;
+    font-size: 0.95rem;
+    color: var(--color-text-main);
+}
+
+.search-input::placeholder {
+    color: var(--color-text-light);
+}
+
+.search-status-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: var(--space-xs);
+    padding: 0 var(--space-sm);
+    font-size: 0.82rem;
+    color: var(--color-text-muted);
+}
+
+.surat-count-badge {
+    font-weight: 600;
+    color: var(--color-primary-700);
+    background: var(--color-primary-50);
+    padding: 2px 10px;
+    border-radius: var(--radius-full);
+    border: 1px solid var(--color-primary-100);
+}
+
+/* --------------------------------------------------------------------------
+   8. Surah Grid & Cards (index.html)
+   -------------------------------------------------------------------------- */
+#alquran {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+    padding-bottom: var(--space-3xl);
+}
+
+@media (min-width: 640px) {
+    #alquran {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--space-lg);
+    }
+}
+
+@media (min-width: 1024px) {
+    #alquran {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.surat-card {
+    background: var(--color-bg-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    box-shadow: var(--shadow-xs);
+    transition: transform var(--transition-normal), box-shadow var(--transition-normal), border-color var(--transition-normal);
+    overflow: hidden;
+}
+
+/* Elegant gold/emerald Islamic top border highlight */
+.surat-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--color-gold-400), var(--color-primary-600));
+    opacity: 0.7;
+    transition: opacity var(--transition-fast), height var(--transition-fast);
+}
+
+.surat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--color-border-gold);
+}
+
+.surat-card:hover::before {
+    opacity: 1;
+    height: 4px;
+}
+
+.surat-card-header {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-md);
+}
+
+/* Islamic Rub el Hizb inspired number medallion */
+.surat-number-badge {
+    width: 44px;
+    height: 44px;
+    background: var(--color-bg-surface-soft);
+    border: 1px solid var(--color-border-gold);
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--color-primary-850);
+    flex-shrink: 0;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.8);
+    transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.surat-card:hover .surat-number-badge {
+    background: var(--color-primary-800);
+    color: var(--color-gold-300);
+    border-color: var(--color-primary-800);
+}
+
+.surat-card-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.surat-nama-latin {
+    font-size: 1.12rem;
+    font-weight: 700;
+    color: var(--color-primary-900);
+    line-height: 1.3;
+    margin-bottom: 2px;
+}
+
+.surat-arti {
+    font-size: 0.82rem;
+    color: var(--color-text-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.surat-nama-arab {
+    font-family: var(--font-arabic);
+    font-size: 1.6rem;
+    color: var(--color-primary-800);
+    line-height: 1.2;
+    text-align: right;
+    direction: rtl;
+    flex-shrink: 0;
+    font-weight: 700;
+}
+
+.surat-card-meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    flex-wrap: wrap;
+    margin-bottom: var(--space-md);
+    padding-top: var(--space-xs);
+    border-top: 1px dashed var(--color-border);
+}
+
+.meta-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.74rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+    background: var(--color-bg-surface-soft);
+    padding: 3px 9px;
+    border-radius: var(--radius-full);
+}
+
+.meta-pill.turun-mekah {
+    color: var(--color-gold-700);
+    background: var(--color-gold-50);
+}
+
+.meta-pill.turun-madinah {
+    color: var(--color-primary-700);
+    background: var(--color-primary-50);
+}
+
+.surat-card-deskripsi {
+    font-size: 0.82rem;
+    color: var(--color-text-muted);
+    line-height: 1.5;
+    margin-bottom: var(--space-md);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.surat-card-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    margin-top: auto;
+}
+
+/* --------------------------------------------------------------------------
+   9. Buttons & Interactive Controls
+   -------------------------------------------------------------------------- */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-xs);
+    padding: 9px 18px;
+    border-radius: var(--radius-full);
+    font-size: 0.88rem;
+    font-weight: 600;
+    line-height: 1.2;
+    transition: all var(--transition-fast);
+    text-align: center;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--color-primary-700), var(--color-primary-850));
+    color: #ffffff !important;
+    box-shadow: 0 2px 6px rgba(18, 69, 56, 0.2);
+    flex: 1;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, var(--color-primary-600), var(--color-primary-800));
+    box-shadow: 0 4px 12px rgba(18, 69, 56, 0.28);
+    transform: translateY(-1px);
+    color: #ffffff !important;
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+}
+
+.btn-bookmark {
+    background: var(--color-bg-surface-soft);
+    color: var(--color-text-muted);
+    border: 1px solid var(--color-border);
+    padding: 8px 14px;
+}
+
+.btn-bookmark:hover {
+    background: var(--color-gold-50);
+    color: var(--color-gold-700);
+    border-color: var(--color-gold-300);
+}
+
+.btn-bookmark.active {
+    background: var(--color-gold-500);
+    color: #ffffff;
+    border-color: var(--color-gold-600);
+}
+
+.btn-bookmark.active svg {
+    fill: currentColor;
+}
+
+.btn-danger-outline {
+    background: var(--color-danger-bg);
+    color: var(--color-danger);
+    border: 1px solid var(--color-danger-border);
+    padding: 8px 14px;
+    font-size: 0.82rem;
+}
+
+.btn-danger-outline:hover {
+    background: var(--color-danger);
+    color: #ffffff;
+}
+
+.btn-back {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    color: var(--color-primary-850);
+    font-weight: 600;
+    font-size: 0.9rem;
+    padding: var(--space-xs) var(--space-md);
+    background: var(--color-bg-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-full);
+    box-shadow: var(--shadow-xs);
+    transition: all var(--transition-fast);
+}
+
+.btn-back:hover {
+    background: var(--color-primary-50);
+    border-color: var(--color-primary-200);
+    transform: translateX(-3px);
+}
+
+/* --------------------------------------------------------------------------
+   10. Reading Page (baca.html)
+   -------------------------------------------------------------------------- */
+.reader-page-header {
+    margin: var(--space-lg) 0 var(--space-xl);
+}
+
+.surat-header-card {
+    background: linear-gradient(135deg, var(--color-primary-900), var(--color-primary-800));
+    color: #ffffff;
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl) var(--space-lg);
+    text-align: center;
+    position: relative;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid rgba(237, 208, 123, 0.3);
+    margin-bottom: var(--space-xl);
+    overflow: hidden;
+}
+
+.surat-header-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 120%, rgba(201, 151, 30, 0.15) 0%, transparent 65%);
+    pointer-events: none;
+}
+
+.surat-header-arab {
+    font-family: var(--font-arabic);
+    font-size: 2.8rem;
+    color: var(--color-gold-400);
+    line-height: 1.3;
+    margin-bottom: var(--space-xs);
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.surat-header-latin {
+    font-size: 1.8rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: var(--space-2xs);
+}
+
+.surat-header-arti {
+    font-size: 1rem;
+    color: var(--color-primary-100);
+    margin-bottom: var(--space-md);
+}
+
+.surat-header-meta-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--space-sm);
+    flex-wrap: wrap;
+    margin-bottom: var(--space-lg);
+}
+
+.header-meta-pill {
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 4px 14px;
+    border-radius: var(--radius-full);
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: #ffffff;
+    backdrop-filter: blur(4px);
+}
+
+/* Audio Player Card */
+.audio-player-box {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(237, 208, 123, 0.25);
+    border-radius: var(--radius-lg);
+    padding: var(--space-sm) var(--space-md);
+    max-width: 480px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-xs);
+}
+
+.audio-label {
+    font-size: 0.8rem;
+    color: var(--color-gold-300);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+#audioMurotal {
+    width: 100%;
+    height: 38px;
+    border-radius: var(--radius-full);
+    outline: none;
+}
+
+/* Basmalah Banner */
+.basmalah-banner {
+    background: var(--color-bg-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    text-align: center;
+    margin-bottom: var(--space-xl);
+    box-shadow: var(--shadow-xs);
+    position: relative;
+}
+
+.basmalah-arabic {
+    font-family: var(--font-arabic);
+    font-size: 2.2rem;
+    color: var(--color-primary-850);
+    line-height: 1.5;
+    margin-bottom: var(--space-2xs);
+}
+
+.basmalah-terjemahan {
+    font-size: 0.88rem;
+    color: var(--color-text-muted);
+    font-style: italic;
+}
+
+/* --------------------------------------------------------------------------
+   11. Ayah Card List (baca.html)
+   -------------------------------------------------------------------------- */
+#daftarAyat {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+    padding-bottom: var(--space-3xl);
+}
+
+.ayah-card {
+    background: var(--color-bg-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    box-shadow: var(--shadow-xs);
+    transition: box-shadow var(--transition-fast), border-color var(--transition-fast);
+}
+
+.ayah-card:hover {
+    box-shadow: var(--shadow-sm);
+    border-color: var(--color-primary-200);
+}
+
+.ayah-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--space-lg);
+    padding-bottom: var(--space-xs);
+    border-bottom: 1px dashed var(--color-border);
+}
+
+.ayah-number-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--color-bg-surface-soft);
+    border: 1px solid var(--color-border-gold);
+    color: var(--color-primary-850);
+    font-weight: 700;
+    font-size: 0.85rem;
+    padding: 4px 12px;
+    border-radius: var(--radius-full);
+}
+
+.ayah-number-badge::before {
+    content: "۞";
+    color: var(--color-gold-500);
+    font-size: 0.95rem;
+}
+
+.ayah-arabic {
+    font-family: var(--font-arabic);
+    font-size: 1.95rem;
+    line-height: 2.2;
+    color: var(--color-text-arabic);
+    text-align: right;
+    direction: rtl;
+    margin-bottom: var(--space-lg);
+    word-spacing: 0.1em;
+    letter-spacing: 0;
+    font-weight: 400;
+}
+
+@media (min-width: 768px) {
+    .ayah-arabic {
+        font-size: 2.25rem;
+        line-height: 2.3;
+    }
+}
+
+.ayah-latin {
+    font-size: 0.96rem;
+    color: var(--color-primary-700);
+    font-style: italic;
+    line-height: 1.6;
+    margin-bottom: var(--space-xs);
+    padding-left: var(--space-sm);
+    border-left: 2px solid var(--color-gold-400);
+}
+
+.ayah-terjemahan {
+    font-size: 0.95rem;
+    color: var(--color-text-main);
+    line-height: 1.65;
+    padding-left: var(--space-sm);
+}
+
+/* --------------------------------------------------------------------------
+   12. Bookmark Page (bookmark.html)
+   -------------------------------------------------------------------------- */
+#daftarbookmark {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+    padding-bottom: var(--space-3xl);
+}
+
+@media (min-width: 640px) {
+    #daftarbookmark {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--space-lg);
+    }
+}
+
+@media (min-width: 1024px) {
+    #daftarbookmark {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* Empty State Component */
+.empty-state-box {
+    background: var(--color-bg-surface);
+    border: 1px dashed var(--color-border-gold);
+    border-radius: var(--radius-xl);
+    padding: var(--space-3xl) var(--space-lg);
+    text-align: center;
+    max-width: 540px;
+    margin: var(--space-xl) auto;
+    box-shadow: var(--shadow-xs);
+    grid-column: 1 / -1;
+}
+
+.empty-state-icon {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto var(--space-md);
+    color: var(--color-gold-500);
+    background: var(--color-gold-50);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.empty-state-icon svg {
+    width: 32px;
+    height: 32px;
+    fill: currentColor;
+}
+
+.empty-state-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--color-primary-850);
+    margin-bottom: var(--space-xs);
+}
+
+.empty-state-text {
+    font-size: 0.92rem;
+    color: var(--color-text-muted);
+    line-height: 1.6;
+    margin-bottom: var(--space-lg);
+}
+
+/* --------------------------------------------------------------------------
+   13. Toast Notification
+   -------------------------------------------------------------------------- */
+.toast-notification {
+    position: fixed;
+    bottom: var(--space-xl);
+    right: var(--space-xl);
+    background: var(--color-primary-900);
+    color: #ffffff;
+    border-left: 4px solid var(--color-gold-500);
+    border-radius: var(--radius-md);
+    padding: var(--space-sm) var(--space-lg);
+    box-shadow: var(--shadow-lg);
+    font-size: 0.9rem;
+    font-weight: 500;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    opacity: 0;
+    transform: translateY(12px);
+    pointer-events: none;
+    transition: opacity var(--transition-normal), transform var(--transition-normal);
+}
+
+.toast-notification.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* --------------------------------------------------------------------------
+   14. Site Footer
+   -------------------------------------------------------------------------- */
+.site-footer {
+    margin-top: auto;
+    background-color: var(--color-bg-surface);
+    border-top: 1px solid var(--color-border);
+    padding: var(--space-xl) 0;
+    text-align: center;
+    color: var(--color-text-muted);
+    font-size: 0.85rem;
+}
+
+.footer-ornament {
+    color: var(--color-gold-500);
+    margin-bottom: var(--space-xs);
+    font-size: 1rem;
+}
+
+.footer-brand {
+    font-weight: 700;
+    color: var(--color-primary-850);
+}
+
+/* --------------------------------------------------------------------------
+   15. Accessibility & Motion Preferences
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}

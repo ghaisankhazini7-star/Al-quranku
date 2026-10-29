@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baca Surat — Alquranku</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Preloader -->
+    <div class="preloader" aria-live="polite">
+        <div class="loader" role="status" aria-label="Memuat ayat"></div>
+        <p id="pesanLoading">Memuat surat dan ayat Al-Qur'an...</p>
+    </div>
+
+    <!-- Header & Navigation -->
+    <header class="site-header">
+        <div class="container nav-container">
+            <a href="index.html" class="brand-link" aria-label="Alquranku Beranda">
+                <div class="brand-emblem" aria-hidden="true">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 2l2.4 4.8 5.3.8-3.8 3.8.9 5.3-4.8-2.5-4.8 2.5.9-5.3-3.8-3.8 5.3-.8L12 2z"/>
+                    </svg>
+                </div>
+                <div class="brand-text">
+                    <span class="brand-title">Alquranku</span>
+                    <span class="brand-tagline">Kalamullah & Terjemahan</span>
+                </div>
+            </a>
+
+            <nav class="site-nav" aria-label="Navigasi">
+                <a href="index.html" class="btn-back">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                        <line x1="19" y1="12" x2="5" y2="12"></line>
+                        <polyline points="12 19 5 12 12 5"></polyline>
+                    </svg>
+                    <span>Daftar Surat</span>
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+        <div class="reader-page-header">
+            <!-- Surah Hero Card -->
+            <section id="suratHeaderCard" class="surat-header-card" aria-label="Informasi Surat">
+                <div id="suratNamaArab" class="surat-header-arab" dir="rtl" lang="ar"></div>
+                <h1 id="namaSurat" class="surat-header-latin">Memuat Surat...</h1>
+                <p id="suratArti" class="surat-header-arti"></p>
+
+                <div id="suratMetaGroup" class="surat-header-meta-group"></div>
+
+                <!-- Audio Murottal Player -->
+                <div class="audio-player-box">
+                    <span class="audio-label">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                            <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                        </svg>
+                        Audio Murottal
+                    </span>
+                    <audio id="audioMurotal" controls aria-label="Pemutar Audio Murottal"></audio>
+                </div>
+            </section>
+
+            <!-- Basmalah Banner -->
+            <div id="basmalahContainer" class="basmalah-banner" style="display: none;">
+                <div class="basmalah-arabic" dir="rtl" lang="ar">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+                <p class="basmalah-terjemahan">Dengan nama Allah Yang Maha Pengasih, Maha Penyayang</p>
+            </div>
+        </div>
+
+        <!-- Ayat List -->
+        <section aria-label="Daftar Ayat">
+            <div id="daftarAyat"></div>
+        </section>
+    </main>
+
+    <!-- Toast Notification -->
+    <div id="toastNotification" class="toast-notification" role="status" aria-live="polite"></div>
+
+    <!-- Site Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-ornament" aria-hidden="true">۞ ✦ ۞</div>
+            <p><span class="footer-brand">Alquranku</span> &mdash; Membaca Al-Qur'an dengan tenang dan nyaman.</p>
+        </div>
+    </footer>
+
+    <script src="baca.js"></script>
+</body>
+</html>

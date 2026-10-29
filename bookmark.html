@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookmark Saya — Alquranku</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Preloader -->
+    <div class="preloader" aria-live="polite">
+        <div class="loader" role="status" aria-label="Memuat bookmark"></div>
+        <p id="pesanLoading">Memuat surat yang Anda simpan...</p>
+    </div>
+
+    <!-- Header & Navigation -->
+    <header class="site-header">
+        <div class="container nav-container">
+            <a href="index.html" class="brand-link" aria-label="Alquranku Beranda">
+                <div class="brand-emblem" aria-hidden="true">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 2l2.4 4.8 5.3.8-3.8 3.8.9 5.3-4.8-2.5-4.8 2.5.9-5.3-3.8-3.8 5.3-.8L12 2z"/>
+                    </svg>
+                </div>
+                <div class="brand-text">
+                    <span class="brand-title">Alquranku</span>
+                    <span class="brand-tagline">Kalamullah & Terjemahan</span>
+                </div>
+            </a>
+
+            <nav class="site-nav" aria-label="Navigasi">
+                <a href="index.html" class="nav-link">Daftar Surat</a>
+                <a href="bookmark.html" class="nav-link active" aria-current="page">
+                    <span>Bookmark</span>
+                    <span id="bookmarkCountBadge" class="nav-badge" aria-label="Jumlah bookmark">0</span>
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Hero / Section Title -->
+        <section class="hero-section">
+            <div class="hero-ornament" aria-hidden="true">۞ ✦ ۞</div>
+            <h1 class="hero-title">Surat yang Disimpan</h1>
+            <p class="hero-subtitle">
+                Akses cepat ke surat-surat favorit Anda untuk dibaca dan ditadaburi kembali kapan saja.
+            </p>
+        </section>
+
+        <!-- Bookmark Grid Container -->
+        <section aria-label="Daftar Surat yang Disimpan">
+            <div id="daftarbookmark"></div>
+        </section>
+    </main>
+
+    <!-- Toast Notification -->
+    <div id="toastNotification" class="toast-notification" role="status" aria-live="polite"></div>
+
+    <!-- Site Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-ornament" aria-hidden="true">۞ ✦ ۞</div>
+            <p><span class="footer-brand">Alquranku</span> &mdash; Membaca Al-Qur'an dengan tenang dan nyaman.</p>
+        </div>
+    </footer>
+
+    <script src="bookmark.js"></script>
+</body>
+</html>
